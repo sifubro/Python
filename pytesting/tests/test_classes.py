@@ -32,12 +32,17 @@ class TestCircle():
         assert result == expected
 
 
+
     def test_one(self):
         assert True
 
 
     def test_two(self):
         assert True
+
+
+    def test_not_same(self, my_rectangle):
+        assert self.circle.area() != my_rectangle.area()
 
 
 class TestRectangle():
