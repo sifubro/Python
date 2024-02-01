@@ -14,6 +14,7 @@ depend on the DB itself because the connection might fail
 import pytest 
 from ..source.service import get_users
 import unittest.mock  as mock
+import requests
 
 # import sys
 # sys.path.append("..")
@@ -34,6 +35,18 @@ def test_get_users(mock_get):
     data = get_users()
 
     assert data == { "id": 1, "name": "Joe Doe"}
+
+
+
+@mock.patch("requests.get")
+def test_get_users_error(mock_get):
+    mock_response = mock.Mock()
+    mock_response.status_code = 400
+    mock_get.return_value  = mock_response
+    with pytest.raises(requests.HTTPError):
+        get_users()
+
+
 
 
 
